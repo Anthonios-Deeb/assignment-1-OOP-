@@ -10,7 +10,9 @@ public class GameLogic implements PlayableLogic{
     private Player whitePlayer, blackPlayer;
     protected static ConcretePiece [] whitePS,deadWhitePS;
     protected static  ConcretePiece [] blackPS,deadBlackPS;
+
     private Stack<ConcretePiece> moves;
+
     protected static Hashtable<Position, ArrayList<ConcretePiece>> postionsCount;
 
     public GameLogic(){
@@ -232,7 +234,6 @@ public class GameLogic implements PlayableLogic{
             return false;
 
         if(a.getCol()==b.getCol()){
-
             if(isRowAccessible(a,b)){
                 checkPositionsCount(p,b);
                 if(p.getType().equals("♙")||p.getType().equals("♟")){
@@ -307,8 +308,6 @@ public class GameLogic implements PlayableLogic{
             }else {
                 Position upUpPosition = new Position(row, col - 2);
                 Piece upUp = getPieceAtPosition(upUpPosition);
-
-
                 if (isCorner(upUpPosition)) {
                     kill(pieces,deadPieces,up,p);
                 }else if (upUp != null && p.getOwner().isPlayerOne() == upUp.getOwner().isPlayerOne()&&!upUp.getType().equals("♔")) {
@@ -425,9 +424,6 @@ public class GameLogic implements PlayableLogic{
         //all the ifs bellow checks if the king is surrounded
         if(p1!=null && p2!=null && p3!=null && p4!=null){
             if(!p1.getOwner().isPlayerOne() && !p2.getOwner().isPlayerOne() && !p3.getOwner().isPlayerOne() && !p4.getOwner().isPlayerOne()){
-                ConcretePiece p=moves.pop();
-                int i=p.getId();
-                blackPS[i].addKill();
                 weHaveAWinner();
                 return true;
             }
@@ -476,19 +472,19 @@ public class GameLogic implements PlayableLogic{
     public void weHaveAWinner(){
         if(playerTurn==0){
             ((ConcretePlayer)getFirstPlayer()).AddWin();
-            PrintFunctions.printWhiteStats();
-            PrintFunctions.printBlackStats();
+            PrintFunctions.printWhiteStats(whitePS,deadWhitePS);
+            PrintFunctions.printBlackStats(blackPS,deadBlackPS);
         } else {
             ((ConcretePlayer)getSecondPlayer()).AddWin();
-            PrintFunctions.printBlackStats();
-            PrintFunctions.printWhiteStats();
+            PrintFunctions.printBlackStats(blackPS,deadBlackPS);
+            PrintFunctions.printWhiteStats(whitePS,deadWhitePS);
         }
         System.out.println("***************************************************************************");
-        PrintFunctions.printKills();
+        PrintFunctions.printKills(whitePS,blackPS,deadWhitePS,deadBlackPS);
         System.out.println("***************************************************************************");
-        PrintFunctions.printSquares();
+        PrintFunctions.printSquares(whitePS,blackPS,deadWhitePS,deadBlackPS);
         System.out.println("***************************************************************************");
-        PrintFunctions.printPostions();
+        PrintFunctions.printPostions(postionsCount);
         System.out.println("***************************************************************************");
         reset();
     }

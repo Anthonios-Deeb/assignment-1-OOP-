@@ -1,16 +1,10 @@
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.Hashtable;
 
 public class PrintFunctions{
 
-    private static ConcretePiece[] whitePS=GameLogic.whitePS;
-    private static ConcretePiece[] blackPS=GameLogic.blackPS;
-    private static ConcretePiece[] deadWhitePS=GameLogic.deadWhitePS;
-    private static ConcretePiece[] deadBlackPS=GameLogic.deadBlackPS;
-    protected static Hashtable<Position, ArrayList<ConcretePiece>> postionsCount=GameLogic.postionsCount;
-
-
-    static void printWhiteStats(){
+    static void printWhiteStats(ConcretePiece [] whitePS,ConcretePiece [] deadWhitePS){
         for (int i=0;i<13;i++){
             if(deadWhitePS[i]!=null){
                 whitePS[i]=deadWhitePS[i];
@@ -32,7 +26,7 @@ public class PrintFunctions{
         }
     }
 
-    public static void printBlackStats(){
+    public static void printBlackStats( ConcretePiece [] blackPS,ConcretePiece [] deadBlackPS){
         for (int i=0;i<24;i++){
             if(deadBlackPS[i]!=null){
                 blackPS[i]=deadBlackPS[i];
@@ -48,7 +42,7 @@ public class PrintFunctions{
         }
     }
 
-    public static void printKills(){
+    public static void printKills(ConcretePiece [] whitePS,ConcretePiece [] blackPS,ConcretePiece [] deadWhitePS,ConcretePiece[] deadBlackPS){
         ConcretePiece [] arr=new ConcretePiece[37];
 
         for (int i=0;i<13;i++){
@@ -81,7 +75,7 @@ public class PrintFunctions{
         }
     }
 
-    public static void printSquares(){
+    public static void printSquares(ConcretePiece [] whitePS,ConcretePiece [] blackPS,ConcretePiece [] deadWhitePS,ConcretePiece[] deadBlackPS){
         ConcretePiece [] arr=new ConcretePiece[37];
 
         for (int i=0;i<13;i++){
@@ -118,7 +112,7 @@ public class PrintFunctions{
 
     }
 
-    public static void printPostions(){
+    public static void printPostions(Hashtable<Position,ArrayList<ConcretePiece>> postionsCount){
 
         // Step 2: Convert Hashtable to List<Map.Entry>
         List<Map.Entry<Position, ArrayList<ConcretePiece>>> list = new ArrayList<>(postionsCount.entrySet());
