@@ -10,9 +10,7 @@ public class GameLogic implements PlayableLogic{
     private Player whitePlayer, blackPlayer;
     protected static ConcretePiece [] whitePS,deadWhitePS;
     protected static  ConcretePiece [] blackPS,deadBlackPS;
-
     private Stack<ConcretePiece> moves;
-
     protected static Hashtable<Position, ArrayList<ConcretePiece>> postionsCount;
 
     public GameLogic(){
